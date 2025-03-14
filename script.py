@@ -20,9 +20,12 @@ qc.draw("mpl")
 
 
 
+
+import os
 from qiskit import QuantumCircuit
 from qiskit.transpiler.preset_passmanagers import generate_preset_pass_manager
 from qiskit_ibm_runtime import QiskitRuntimeService
+from dotenv import load_dotenv
 import pylatexenc
 
 
@@ -31,6 +34,22 @@ import pylatexenc
  
 observables_labels = ["IZ", "IX", "ZI", "XI", "ZZ", "XX"]
 observables = [SparsePauliOp(label) for label in observables_labels]
+
+
+load_dotenv()
+token = os.getenv('token')
+
+# Connexion au service IBM
+try:
+    QiskitRuntimeService.save_account(
+        token=token,
+        channel="ibm_quantum",
+        overwrite=True
+    )
+    print("Compte IBM configuré avec succès !")
+except Exception as e:
+    print(f"Erreur lors de la configuration du compte IBM : {e}")
+
 
 
 # Crée le service IBM Quantum
@@ -70,5 +89,3 @@ job = estimator.run([(isa_circuit, mapped_observables)])
 # Use the job ID to retrieve your job data later
 print(f">>> Job ID: {job.job_id()}")
 
-
-# output >>> Job ID: cza08p2hfwp00087wx4g
