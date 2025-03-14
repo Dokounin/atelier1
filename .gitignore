@@ -1,0 +1,17 @@
+# Fichiers d'environnement
+.env
+
+# Fichiers Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Dossier de l'environnement virtuel
+.venv/
+
+# Fichiers de logs
+*.log
+
+# Fichiers système
+.DS_Store
+Thumbs.db
